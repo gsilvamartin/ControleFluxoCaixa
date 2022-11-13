@@ -4,9 +4,10 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <DockerComposeProjectPath>../docker-compose.dcproj</DockerComposeProjectPath>
+    <UserSecretsId>fddeed80-ac33-4180-bc49-8ad4450e8dd0</UserSecretsId>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.0" />
@@ -15,8 +16,22 @@
 
   <ItemGroup>
     <None Remove="Controllers\" />
+    <None Remove="Services\" />
+    <None Remove="Repository\" />
+    <None Remove="Repository\Interfaces\" />
+    <None Remove="Services\Interfaces\" />
+    <None Remove="Model\" />
+    <None Remove="Model\Request\" />
+    <None Remove="Model\Response\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Services\" />
+    <Folder Include="Repository\" />
+    <Folder Include="Repository\Interfaces\" />
+    <Folder Include="Services\Interfaces\" />
+    <Folder Include="Model\" />
+    <Folder Include="Model\Request\" />
+    <Folder Include="Model\Response\" />
   </ItemGroup>
 </Project>
