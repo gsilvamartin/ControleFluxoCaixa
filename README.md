@@ -26,3 +26,33 @@
  
  - Projeto inicializado com sucesso.
  
+### Rotas das APIs
+ - URL Base do Gateway: http://localhost:6000;
+ 
+### MS Lancamentos:
+
+- Recupera lançamento pelo id
+
+       GET - /api/lancamento?id=1
+       
+- Insere lançamento 
+
+       POST - /api/lancamento
+       
+       JSON - {
+         descricao: "descrição lançamento"
+         valor: 1.00
+       }
+       
+### MS Consolidado
+
+- Recupera relatório consolidado
+
+       GET - /api/consolidado?data=13/11/2022
+       Parametro data não mandatório
+       
+Desenho de Solução:
+ 
+ ![api drawio (1)](https://user-images.githubusercontent.com/42881020/201563297-96d88995-e8ea-4538-b52b-cb3ab8811578.png)
+
+Arquitetura Cloud:
