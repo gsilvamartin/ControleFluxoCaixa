@@ -1,27 +1,29 @@
 ﻿using System;
+using APIMSLancamentos.Model.Request;
 using APIMSLancamentos.Model.Response;
+using APIMSLancamentos.Repository.Context.Model;
 using APIMSLancamentos.Repository.Interfaces;
 using APIMSLancamentos.Services.Interfaces;
 
 namespace APIMSLancamentos.Services
 {
-	public class LancamentoService: ILancamentoService
-	{
+    public class LancamentoService : ILancamentoService
+    {
         private readonly ILancamentoRepository _lancamentoRepository;
 
-		public LancamentoService(ILancamentoRepository lancamentoRepository)
-		{
-            this._lancamentoRepository = lancamentoRepository;
-		}
-
-        public LancamentoResponse GetLancamento(int idLancamento)
+        public LancamentoService(ILancamentoRepository lancamentoRepository)
         {
-            throw new NotImplementedException();
+            this._lancamentoRepository = lancamentoRepository;
         }
 
-        public bool RegistrarLancamento()
+        public Lancamentos GetLancamento(int idLancamento)
         {
-            throw new NotImplementedException();
+            return _lancamentoRepository.GetLancamento(idLancamento);
+        }
+
+        public bool RegistrarLancamento(LancamentoInput lancamentoInput)
+        {
+            return _lancamentoRepository.RegistrarLancamento(lancamentoInput);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using APIMSLancamentos.Model.Request;
+using APIMSLancamentos.Model.Response;
 using APIMSLancamentos.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,28 +19,47 @@ namespace APIMSLancamentos.Controllers
             this._lancamentoService = lancamentoService;
         }
 
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
         [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        [HttpPost]
-        public void Post(LancamentoInput lancamentoInput)
+        public IActionResult Get(int id)
         {
             try
             {
-
+                return Ok(new APIResponse
+                {
+                    Data = _lancamentoService.GetLancamento(id),
+                    Message = "Lancamento recuperado com sucesso",
+                    Success = true
+                });
             }
             catch (Exception ex)
             {
+                return BadRequest(new APIResponse
+                {
+                    Message = ex.Message,
+                    Success = false
+                });
+            }
+        }
 
+        [HttpPost]
+        public IActionResult Post([FromBody] LancamentoInput lancamentoInput)
+        {
+            try
+            {
+                return Ok(new APIResponse
+                {
+                    Data = _lancamentoService.RegistrarLancamento(lancamentoInput),
+                    Success = true,
+                    Message = "Lançamento cadastrado com sucesso"
+                });
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(new APIResponse
+                {
+                    Message = ex.Message,
+                    Success = false
+                });
             }
         }
     }
