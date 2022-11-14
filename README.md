@@ -52,7 +52,8 @@
        Parametro data não mandatório
        
 Desenho de Solução:
- 
- ![api drawio (1)](https://user-images.githubusercontent.com/42881020/201563297-96d88995-e8ea-4538-b52b-cb3ab8811578.png)
+
+![api drawio (2)](https://user-images.githubusercontent.com/42881020/201563412-7fcdb6a1-27c7-4c46-89ad-e91cce131d5e.png)
+
 
 Arquitetura Cloud:
