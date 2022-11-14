@@ -1,5 +1,5 @@
 ﻿using System;
-namespace APIMSLancamentos.Model.Response
+namespace APIMSConsolidado.Model.Response
 {
 	public class APIResponse
 	{

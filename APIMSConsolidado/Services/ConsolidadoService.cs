@@ -1,7 +1,6 @@
 ﻿using System;
 using APIMSConsolidado.Model.Request;
 using APIMSConsolidado.Model.Response;
-using APIMSConsolidado.Repository.Context.Model;
 using APIMSConsolidado.Repository.Interfaces;
 using APIMSConsolidado.Services.Interfaces;
 
@@ -9,21 +8,26 @@ namespace APIMSConsolidado.Services
 {
     public class ConsolidadoService : IConsolidadoService
     {
-        private readonly IConsolidadoRepository _ConsolidadoRepository;
+        private readonly IConsolidadoRepository _consolidadoRepository;
 
-        public ConsolidadoService(IConsolidadoRepository ConsolidadoRepository)
+        public ConsolidadoService(IConsolidadoRepository consolidadoRepository)
         {
-            this._ConsolidadoRepository = ConsolidadoRepository;
+            this._consolidadoRepository = consolidadoRepository;
         }
 
-        public Consolidados GetConsolidado(int idConsolidado)
+        public RelatorioConsolidado GetRelatorioConsolidado(DateTime? dataLancamento)
         {
-            return _ConsolidadoRepository.GetConsolidado(idConsolidado);
-        }
+            var lancamentos = _consolidadoRepository.GetLancamentos(dataLancamento);
 
-        public bool RegistrarConsolidado(ConsolidadoInput ConsolidadoInput)
-        {
-            return _ConsolidadoRepository.RegistrarConsolidado(ConsolidadoInput);
+            return new RelatorioConsolidado
+            {
+                ConsolidadoDia = lancamentos.GroupBy(x => x.Data).Select(group => new DetalheConsolidadoDia
+                {
+                    Data = group.Key,
+                    Valor = group.Sum(x => x.Valor)
+                }).ToList(),
+                SaldoAtual = lancamentos.Sum(x => x.Valor)
+            };
         }
     }
 }

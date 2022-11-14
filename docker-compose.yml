@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   postgres:
-    container_name: postgres_container
+    container_name: postgres
     image: postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-admin}
@@ -12,8 +12,6 @@ services:
        - postgres:/data/postgres
     ports:
       - "5432:5432"
-    networks:
-      - postgres
     restart: unless-stopped
   
   pgadmin:
@@ -27,8 +25,6 @@ services:
        - pgadmin:/var/lib/pgadmin
     ports:
       - "${PGADMIN_PORT:-5050}:80"
-    networks:
-      - postgres
     restart: unless-stopped
 
   apigateway:
@@ -54,10 +50,6 @@ services:
       dockerfile: APIMSLancamentos/Dockerfile
     ports:
      - "6002:80"
-
-networks:
-  postgres:
-    driver: bridge
 
 volumes:
     postgres:

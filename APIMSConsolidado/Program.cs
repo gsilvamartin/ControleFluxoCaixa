@@ -1,15 +1,24 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using APIMSConsolidado.Repository;
+using APIMSConsolidado.Repository.Context;
+using APIMSConsolidado.Repository.Interfaces;
+using APIMSConsolidado.Services;
+using APIMSConsolidado.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
-// Add services to the container.
+var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<LancamentosContext>(
+    options => options.UseNpgsql(
+        builder.Configuration.GetConnectionString("PostgreDB")
+    ));
+builder.Services.AddTransient<IConsolidadoService, ConsolidadoService>();
+builder.Services.AddTransient<IConsolidadoRepository, ConsolidadoRepository>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

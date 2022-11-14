@@ -2,45 +2,42 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using APIMSConsolidado.Model.Response;
+using APIMSConsolidado.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace APIMSConsolidado.Controllers
 {
     [Route("api/[controller]")]
     public class ConsolidadoController : Controller
     {
-        // GET: api/values
+        private readonly IConsolidadoService _consolidadoService;
+
+        public ConsolidadoController(IConsolidadoService consolidadoService)
+        {
+            this._consolidadoService = consolidadoService;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get(DateTime? data)
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            try
+            {
+                return Ok(new APIResponse
+                {
+                    Data = _consolidadoService.GetRelatorioConsolidado(data),
+                    Message = "Relatório gerado com sucesso",
+                    Success = true
+                });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new APIResponse
+                {
+                    Message = ex.Message,
+                    Success = false
+                });
+            }
         }
     }
 }

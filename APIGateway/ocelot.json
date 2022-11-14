@@ -1,7 +1,7 @@
 ﻿{
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/helloworld",
+      "DownstreamPathTemplate": "/api/consolidado",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -9,8 +9,20 @@
           "Port": 6001
         }
       ],
-      "UpstreamPathTemplate": "/api/helloworld",
+      "UpstreamPathTemplate": "/api/consolidado",
       "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/lancamento",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 6002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/lancamento",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
     }
   ],
   "GlobalConfiguration": {}

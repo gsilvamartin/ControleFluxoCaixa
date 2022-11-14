@@ -12,6 +12,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddOcelot(configuration);
 
+
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

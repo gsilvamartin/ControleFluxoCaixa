@@ -2,7 +2,7 @@
 using APIMSLancamentos.Repository.Context.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace APIMSLancamentos.Repository.Context
+namespace APIMSConsolidado.Repository.Context
 {
     public class LancamentosContext : DbContext
     {

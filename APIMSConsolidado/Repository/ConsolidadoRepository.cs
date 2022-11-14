@@ -1,23 +1,30 @@
 ﻿using System;
 using APIMSConsolidado.Model.Request;
 using APIMSConsolidado.Repository.Context;
-using APIMSConsolidado.Repository.Context.Model;
 using APIMSConsolidado.Repository.Interfaces;
+using APIMSLancamentos.Repository.Context.Model;
 
 namespace APIMSConsolidado.Repository
 {
     public class ConsolidadoRepository : IConsolidadoRepository
     {
-        private readonly ConsolidadosContext _ConsolidadoContext;
+        private readonly LancamentosContext _lancamentosContext;
 
-        public ConsolidadoRepository(ConsolidadosContext ConsolidadoContext)
+        public ConsolidadoRepository(LancamentosContext lancamentosContext)
         {
-            this._ConsolidadoContext = ConsolidadoContext;
+            this._lancamentosContext = lancamentosContext;
         }
 
-        public Consolidados GetConsolidado(int idConsolidado)
+        public List<Lancamentos> GetLancamentos(DateTime? dataLancamento)
         {
-            return _ConsolidadoContext.Consolidados.Where(x => x.Id == idConsolidado).First();
+            if (dataLancamento is null)
+            {
+                return _lancamentosContext.Lancamentos.ToList();
+            }
+
+            return _lancamentosContext.Lancamentos
+                .Where(x => x.Data.Date == DateTime.SpecifyKind(dataLancamento.Value, DateTimeKind.Utc).Date)
+                .ToList();
         }
     }
 }
